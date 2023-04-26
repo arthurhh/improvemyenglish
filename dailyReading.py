@@ -114,7 +114,7 @@ def run():
     opener.retrieve(img_url, image_name)
     output_html = f'<h1>{title}</h1><h2>{author}</h2><h3>{subtitle}</h3><p>{description}</p>{html_article}'
 
-    commit_message = f'{title} by {author}'
+    commit_message = f'{title} by {author}\n'
     html_file_name = os.path.join(directory, f'{date}-{legal_title}-{legal_author}.html')
 
     print('Building output...', end='')
