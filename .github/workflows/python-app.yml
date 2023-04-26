@@ -44,6 +44,6 @@ jobs:
           COMMIT_MESSAGE=$(cat commit_message)
           rm commit_message
           git add .
-          git commit -m $COMMIT_MESSAGE
+          git commit -m "$COMMIT_MESSAGE"
           git push
         fi
