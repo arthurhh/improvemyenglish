@@ -1,0 +1,43 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  schedule:
+    - cron: '5 4 * * *'
+
+permissions:
+  contents: read|write
+  
+env:
+  TIMEOUT: 30
+  HIDE_DOMAIN: ${{ secrets.HIDE_DOMAIN }}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.8"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run the code
+      run: |
+        python dailyReading.py
+    - name: Commit the new files
+      run: |
+        if test -f "commit_message"; then
+          COMMIT_MESSAGE=$(cat commit_message)
+          rm commit_message
+          git add .
+          git commit -m $COMMIT_MESSAGE
+          git push
+        fi
