@@ -114,7 +114,7 @@ def run():
     os.remove(html_file_name)
     os.remove(image_name)
     write_audio_file(opener, audio_links, directory, legal_title)
-    return commit_message
+    write_to_file("commit_message", commit_message, 'w')
 
 
 def write_to_file(file_name, output, option):
