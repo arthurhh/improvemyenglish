@@ -51,3 +51,4 @@ jobs:
         commit_message: ${{ steps.commit_message_step.outputs.commit_message }}
         commit_user_name: ${{ vars.COMMIT_USER_NAME }}
         commit_user_email: ${{ vars.COMMIT_USER_EMAIL }}
+        file_pattern: 'blinks'
