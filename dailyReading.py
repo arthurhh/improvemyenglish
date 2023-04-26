@@ -1,3 +1,4 @@
+from selenium.common import TimeoutException
 from webdriver_manager.chrome import ChromeDriverManager
 import undetected_chromedriver as uc
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -78,10 +79,11 @@ def wait_for_reader_page(driver):
 
 
 def get_next_button(driver):
-    button_in_list = driver.find_elements(By.CSS_SELECTOR, "[data-test-id='nextChapter']")
-    if button_in_list and button_in_list[0].is_displayed():
-        return button_in_list[0]
-    else:
+    button_locator = (By.CSS_SELECTOR, "[data-test-id='nextChapter']")
+    try:
+        WebDriverWait(driver, timeout).until(cond.element_to_be_clickable(button_locator))
+        return driver.find_element(*button_locator)
+    except TimeoutException:
         return None
 
 
