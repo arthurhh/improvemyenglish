@@ -37,15 +37,16 @@ def get_meta_data(driver):
 def get_article(driver, start_button):
     next_button = start_button
     html_article = ""
+    chapter_headline_locator = (By.CLASS_NAME, "reader-content__headline")
+    chapter_headline = "XXXX"
     audio_links = {}
     chapter_counter = 0
     while next_button:
         next_button.click()
-        wait_for_loading_screen(driver)
-        wait_for_reader_page(driver)
+        wait_for_element_change(driver, chapter_headline_locator, chapter_headline)
         next_button = get_next_button(driver)
         audio_link = driver.find_element(By.CSS_SELECTOR, "[data-test-id='readerAudio']").get_attribute("audio-url")
-        chapter_headline = driver.find_element(By.CLASS_NAME, "reader-content__headline").get_attribute('innerHTML')
+        chapter_headline = driver.find_element(*chapter_headline_locator).get_attribute('innerHTML')
         chapter = driver.find_element(By.CLASS_NAME, "reader-content__text").get_attribute('innerHTML')
         html_article += f'<h1>{chapter_headline}</h1>'
         html_article += chapter
@@ -54,9 +55,9 @@ def get_article(driver, start_button):
     return html_article, audio_links
 
 
-def wait_for_loading_screen(driver):
-    WebDriverWait(driver, timeout).until(cond.visibility_of_element_located((By.CLASS_NAME, "loader")))
-    WebDriverWait(driver, timeout).until(cond.invisibility_of_element_located((By.CLASS_NAME, "loader")))
+def wait_for_element_change(driver, locator, current_state):
+    return WebDriverWait(driver, timeout).until_not(
+        cond.text_to_be_present_in_element(locator, current_state))
 
 
 def wait_for_reader_page(driver):
