@@ -38,12 +38,14 @@ jobs:
     - name: Run the code
       run: |
         python dailyReading.py
-    - name: Commit the new files
+    - name: Set commit message
+      id: commit_message_step
       run: |
-        if test -f "commit_message"; then
-          COMMIT_MESSAGE=$(cat commit_message)
-          rm commit_message
-          git add .
-          git commit -m "$COMMIT_MESSAGE"
-          git push
-        fi
+        echo 'commit_message<<EOF' >> $GITHUB_OUTPUT
+        cat commit_message >> $GITHUB_OUTPUT
+        echo 'EOF' >> $GITHUB_OUTPUT
+    - run: rm -rf commit_message
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      id: commit
+      with:
+        commit_message: ${{ steps.commit_message_step.outputs.commit_message }}

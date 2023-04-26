@@ -13,8 +13,8 @@ import wisecreator.wisecreate
 
 import wisecreator.wisecreate
 
-domain ="https://www.blinkist.com/en/content/daily"
-timeout = 30
+domain = os.environ['HIDE_DOMAIN']
+timeout = os.environ['TIMEOUT']
 
 
 def get_meta_data(driver):
