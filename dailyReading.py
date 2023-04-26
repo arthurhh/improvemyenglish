@@ -13,8 +13,8 @@ import wisecreator.wisecreate
 
 import wisecreator.wisecreate
 
-domain = os.environ['HIDE_DOMAIN']
-timeout = os.environ['TIMEOUT']
+domain ="https://www.blinkist.com/en/content/daily"
+timeout = 30
 
 
 def get_meta_data(driver):
@@ -59,12 +59,12 @@ def get_article(driver, start_button):
     return html_article, audio_links
 
 
-def wait_for_element_text_change(driver, locator, attribute, current_state):
+def wait_for_element_attribute_change(driver, locator, attribute, current_state):
     return WebDriverWait(driver, timeout).until_not(
         cond.text_to_be_present_in_element_attribute(locator, attribute, current_state))
 
 
-def wait_for_element_attribute_change(driver, locator, current_state):
+def wait_for_element_text_change(driver, locator, current_state):
     return WebDriverWait(driver, timeout).until_not(
         cond.text_to_be_present_in_element(locator, current_state))
 
