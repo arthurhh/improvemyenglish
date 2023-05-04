@@ -1,7 +1,6 @@
 from selenium.common import TimeoutException
 from webdriver_manager.chrome import ChromeDriverManager
 import undetected_chromedriver as uc
-from selenium.webdriver.chrome.service import Service as ChromeService
 import os
 from datetime import datetime
 from selenium import webdriver
@@ -98,7 +97,7 @@ def create_webdriver():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920,1080")
-    driver = uc.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+    driver = uc.Chrome(driver_executable_path=ChromeDriverManager().install(), options=chrome_options)
 
     return driver
 
