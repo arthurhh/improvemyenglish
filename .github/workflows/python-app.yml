@@ -52,7 +52,7 @@ jobs:
         echo 'EOF' >> $GITHUB_OUTPUT
     - run: rm -rf commit_message
     - uses: stefanzweifel/git-auto-commit-action@v4
-      if: ${{ steps.set_commit_message_step.outputs.commit_message != steps.check_last_commit_message_step.outputs.commit_message}}
+      if: ${{ steps.set_commit_message_step.outputs.commit_message != steps.check_last_commit_message_step.outputs.commit_message }}
       id: commit
       with:
         commit_message: ${{ steps.commit_message_step.outputs.commit_message }}
