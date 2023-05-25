@@ -38,14 +38,21 @@ jobs:
     - name: Run the code
       run: |
         python dailyReading.py
+    - name: Check last commit message
+      id: check_last_commit_message_step
+      run: |
+        echo 'commit_message<<EOF' >> $GITHUB_OUTPUT
+        git log -1 --pretty=format:%B >> $GITHUB_OUTPUT
+        echo 'EOF' >> $GITHUB_OUTPUT
     - name: Set commit message
-      id: commit_message_step
+      id: set_commit_message_step
       run: |
         echo 'commit_message<<EOF' >> $GITHUB_OUTPUT
         cat commit_message >> $GITHUB_OUTPUT
         echo 'EOF' >> $GITHUB_OUTPUT
     - run: rm -rf commit_message
     - uses: stefanzweifel/git-auto-commit-action@v4
+      if: ${{ steps.set_commit_message_step.outputs.commit_message != steps.check_last_commit_message_step.outputs.commit_message}}
       id: commit
       with:
         commit_message: ${{ steps.commit_message_step.outputs.commit_message }}
