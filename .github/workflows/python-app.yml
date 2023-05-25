@@ -28,10 +28,11 @@ jobs:
         python-version: "3.8"
     - name: Install dependencies
       run: |
+        sudo apt-get update
+        sudo apt-get -y install libegl1 libopengl0
+        sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        sudo apt-get install libegl1 libopengl0
-        sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
     - name: Add executable flag to mobitool
       run: |
         chmod +x wisecreator/third_party/mobitool-linux-x86_64
