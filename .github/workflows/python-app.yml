@@ -42,6 +42,7 @@ jobs:
     - name: Check last commit message
       id: check_last_commit_message_step
       run: |
+        git version
         echo 'commit_message<<EOF' >> $GITHUB_OUTPUT
         git log -1 --pretty=format:%B >> $GITHUB_OUTPUT
         echo 'EOF' >> $GITHUB_OUTPUT
