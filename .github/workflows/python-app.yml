@@ -56,7 +56,7 @@ jobs:
       if: ${{ steps.set_commit_message_step.outputs.commit_message != steps.check_last_commit_message_step.outputs.commit_message }}
       id: commit
       with:
-        commit_message: ${{ steps.commit_message_step.outputs.commit_message }}
+        commit_message: ${{ steps.set_commit_message_step.outputs.commit_message }}
         commit_user_name: ${{ vars.COMMIT_USER_NAME }}
         commit_user_email: ${{ vars.COMMIT_USER_EMAIL }}
         file_pattern: 'blinks'
