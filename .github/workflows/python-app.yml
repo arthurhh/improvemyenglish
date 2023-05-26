@@ -43,7 +43,7 @@ jobs:
       id: check_last_commit_message_step
       run: |
         echo 'commit_message<<EOF' >> $GITHUB_OUTPUT
-        git log -1 --pretty=format:%B | cat >> $GITHUB_OUTPUT
+        git log -1 --pretty=format:%B | head | sed -e '$a\' >> $GITHUB_OUTPUT
         echo 'EOF' >> $GITHUB_OUTPUT
     - name: Set commit message
       id: set_commit_message_step
