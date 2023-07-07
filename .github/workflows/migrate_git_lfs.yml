@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Install dependencies
+    - name: Remove unnecessary files
       run: |
-        sudo apt-get update
-        sudo apt-get -y install git-lfs
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+    - uses: actions/checkout@v3
     - name: Configure Git LFS
       run: |
         git lfs migrate import --everything --include="*.m4a" --verbose
