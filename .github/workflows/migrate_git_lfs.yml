@@ -21,7 +21,7 @@ jobs:
         sudo apt-get -y install git-lfs
     - name: Configure Git LFS
       run: |
-        git lfs migrate import --everything --include="*.m4a"
+        git lfs migrate import --everything --include="*.m4a" --verbose
 # git lfs track "*.m4a"
 # git add .gitattributes
 # git commit -m "Setup LFS"
