@@ -1,0 +1,31 @@
+# This workflow migrates large files to git lfs
+
+name: Migrate large files to GIT LFS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install git-lfs
+    - name: Configure Git LFS
+      run: |
+        git lfs migrate import --everything --include="*.m4a"
+# git lfs track "*.m4a"
+# git add .gitattributes
+# git commit -m "Setup LFS"
+    - name: Force push
+      run: |
+        git push --force --all
+        
