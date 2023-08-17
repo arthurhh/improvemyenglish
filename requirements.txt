@@ -1,9 +1,7 @@
-chromedriver-binary
 selenium
 urllib3
 Pillow
 requests
-webdriver-manager
 undetected_chromedriver
 nltk
 cursor
