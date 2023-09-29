@@ -1,4 +1,5 @@
 from selenium.common import TimeoutException
+from selenium.common import WebDriverException
 import undetected_chromedriver as uc
 import os
 from datetime import datetime
@@ -8,8 +9,6 @@ import urllib.request
 import re
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as cond
-import wisecreator.wisecreate
-
 import wisecreator.wisecreate
 
 domain = os.environ['HIDE_DOMAIN']
@@ -104,8 +103,12 @@ def create_webdriver():
 def run():
     print('Fetching content...', end='')
     driver = create_webdriver()
-    title, author, subtitle, description, img_url, start_button = get_meta_data(driver)
-    html_article, audio_links = get_article(driver, start_button)
+    try:
+        title, author, subtitle, description, img_url, start_button = get_meta_data(driver)
+        html_article, audio_links = get_article(driver, start_button)
+    except WebDriverException:
+        print(driver.page_source)
+        raise
     date = datetime.now().strftime('%Y%m%d')
     legal_author = re.sub('[^A-Za-z0-9]+', '_', author.replace('by ', ''))
     legal_title = re.sub('[^A-Za-z0-9]+', '_', title)
