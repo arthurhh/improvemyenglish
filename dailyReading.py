@@ -96,7 +96,9 @@ def create_webdriver():
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920,1080")
     driver = uc.Chrome(options=chrome_options)
-
+    # Temp fix for UC 3.5.3 and Chrome 117
+    user_agent = str(driver.execute_script('return navigator.userAgent')).replace("Headless", "")
+    driver.execute_cdp_cmd('Network.setUserAgentOverride', {'userAgent': user_agent}) 
     return driver
 
 
